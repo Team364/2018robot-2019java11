@@ -11,8 +11,7 @@ public class TeleopBasicVisionCommand extends Command {
      */
     public TeleopBasicVisionCommand() {
         requires(Robot.visionSystem);
-        setInterruptible(true);
-
+        //setInterruptible(true);
     }
 
     @Override
@@ -22,7 +21,7 @@ public class TeleopBasicVisionCommand extends Command {
     @Override
     protected void execute() {
        //Robot.visionSystem.processOneFrame();
-   
+        System.out.print(Robot.visionSystem.getValueFromNetworkTable());
     }
 
     @Override

@@ -1,32 +1,48 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.teleop.*;
-import frc.robot.DynamicVisionPipeline;
-import frc.robot.commands.teleop.TeleopAlignWithTape;
-import frc.robot.BasicVisionPipeline;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import frc.robot.commands.teleop.*;
+// import frc.robot.DynamicVisionPipeline;
+// import frc.robot.commands.teleop.TeleopAlignWithTape;
+// import frc.robot.BasicVisionPipeline;
+import frc.robot.commands.teleop.TeleopBasicVisionCommand;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.vision.VisionThread;
 
-import org.opencv.core.Rect;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.core.*;
-import java.util.ArrayList;
+// import edu.wpi.cscore.UsbCamera;
+// import edu.wpi.first.cameraserver.CameraServer;
+// import edu.wpi.first.vision.VisionThread;
+
+// import org.opencv.core.Rect;
+// import org.opencv.imgproc.Imgproc;
+// import org.opencv.core.*;
+// import java.util.ArrayList;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class VisionSystem extends Subsystem {
 
+    NetworkTableInstance roboRioInstance;
+    NetworkTable dataTable;
+    NetworkTableEntry testValue;
     /**
      * VisionSystem() interprets data from grip pipelines filtering images from the
      * usb camera
      */
     public VisionSystem() {
+        roboRioInstance = NetworkTableInstance.getDefault();
+        dataTable = roboRioInstance.getTable("datatable");
+        testValue = roboRioInstance.getEntry("testValue");
+
         //camera = CameraServer.getInstance().startAutomaticCapture("Video", 0);
         //camera.setResolution(320, 240);
-        
+    }
+    public double getValueFromNetworkTable() {
+        // THIS IS A TEST FUNCTION
+        return testValue.getDouble(-1);
     }
 
     public void setupSearchForBall() {     
@@ -41,7 +57,7 @@ public class VisionSystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        //setDefaultCommand(new TeleopBasicVisionCommand());
+        setDefaultCommand(new TeleopBasicVisionCommand());
     }
 
 }
