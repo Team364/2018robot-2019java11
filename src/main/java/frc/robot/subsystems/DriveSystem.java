@@ -154,11 +154,11 @@ public class DriveSystem extends Subsystem {
         rightRear.set(power - pidOutputNavX);
     }
     public void turnToVisionTarget() {
-        pidOutputXvalue = pidXvalue.calculateOutput(Robot.visionSystem.DesiredX, Robot.visionSystem.centerX);
-        leftFront.set(pidOutputXvalue);
-        leftRear.set(pidOutputXvalue);
-        rightFront.set(-pidOutputXvalue);
-        rightRear.set(-pidOutputXvalue);
+        // pidOutputXvalue = pidXvalue.calculateOutput(Robot.visionSystem.DesiredX, Robot.visionSystem.centerX);
+        // leftFront.set(pidOutputXvalue);
+        // leftRear.set(pidOutputXvalue);
+        // rightFront.set(-pidOutputXvalue);
+        // rightRear.set(-pidOutputXvalue);
     }
     /**
      * reachedHeading()

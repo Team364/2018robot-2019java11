@@ -26,35 +26,35 @@ public class TeleopCenterOnBall extends Command {
 
     @Override
     protected void initialize() {
-        counter = 0;
-        reachedX = false;
-        Robot.visionSystem.DesiredX = VisionSystem.ballDesiredX;
-        Robot.visionSystem.setupSearchForBall();
-        Robot.driveSystem.pidXvalue.resetPID();
-        Robot.driveSystem.pidXvalue.setPIDParameters(0.003, 0.00001, 0.0, 0.0);
+        // counter = 0;
+        // reachedX = false;
+        // Robot.visionSystem.DesiredX = VisionSystem.ballDesiredX;
+        // Robot.visionSystem.setupSearchForBall();
+        // Robot.driveSystem.pidXvalue.resetPID();
+        // Robot.driveSystem.pidXvalue.setPIDParameters(0.003, 0.00001, 0.0, 0.0);
     }
 
     @Override
     protected void execute() {
       
-        if (Robot.visionSystem.visionTargetSeen) {
+        // if (Robot.visionSystem.visionTargetSeen) {
 
-            // I see a target! 
-            double centerX = Robot.visionSystem.centerX;
+        //     // I see a target! 
+        //     double centerX = Robot.visionSystem.centerX;
    
-            // Interpret location(s) of target and drive accordingly
-            if(!reachedX){
-            Robot.driveSystem.turnToVisionTarget();
-            }
+        //     // Interpret location(s) of target and drive accordingly
+        //     if(!reachedX){
+        //     Robot.driveSystem.turnToVisionTarget();
+        //     }
             
-            if(Math.abs(Robot.driveSystem.pidXvalue.getError()) <= 6){
-                reachedX = true;
-                System.out.println("Ball is centered");
-                Robot.driveSystem.tankDrive(0, 0);
-            }
+        //     if(Math.abs(Robot.driveSystem.pidXvalue.getError()) <= 6){
+        //         reachedX = true;
+        //         System.out.println("Ball is centered");
+        //         Robot.driveSystem.tankDrive(0, 0);
+        //     }
            
-        }
-        System.out.println(counter);
+        // }
+        // System.out.println(counter);
     }
 
     @Override

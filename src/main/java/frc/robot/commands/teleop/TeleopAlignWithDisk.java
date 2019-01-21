@@ -23,32 +23,32 @@ public class TeleopAlignWithDisk extends Command {
 
     @Override
     protected void initialize() {
-        // Set up vision system to track TAPE
-        Robot.visionSystem.setupSearchForDisk();
-        Robot.driveSystem.pidXvalue.setPIDParameters(0.0007, 0.0, 0.0, 0.0);
-        Robot.driveSystem.pidAvalue.setPIDParameters(0.0003, 0.0, 0.0, 0.0);
+        // // Set up vision system to track TAPE
+        // Robot.visionSystem.setupSearchForDisk();
+        // Robot.driveSystem.pidXvalue.setPIDParameters(0.0007, 0.0, 0.0, 0.0);
+        // Robot.driveSystem.pidAvalue.setPIDParameters(0.0003, 0.0, 0.0, 0.0);
     }
 
     @Override
     protected void execute() {
         // Process the frame currently sitting in VisionSystem
-        Robot.visionSystem.processOneFrame();
+        // Robot.visionSystem.processOneFrame();
 
-        if (Robot.visionSystem.visionTargetSeen) {
-            // I see a target! 
-            double centerX = Robot.visionSystem.centerX;
-            double centerX2 = Robot.visionSystem.centerX2;
-            double targetArea = Robot.visionSystem.targetArea;
-            double visionLeft;
-            double visionRight;
+        // if (Robot.visionSystem.visionTargetSeen) {
+        //     // I see a target! 
+        //     double centerX = Robot.visionSystem.centerX;
+        //     double centerX2 = Robot.visionSystem.centerX2;
+        //     double targetArea = Robot.visionSystem.targetArea;
+        //     double visionLeft;
+        //     double visionRight;
 
-            // Interpret location(s) of target and drive accordingly
-            double pidOutputXvalue = Robot.driveSystem.pidXvalue.calculateOutput(VisionSystem.tapeDesiredX , ((centerX + centerX2) / 2));
-            double pidOutputAvalue = Robot.driveSystem.pidAvalue.calculateOutput(VisionSystem.tapeDesiredTargetArea, targetArea);
-                visionLeft = pidOutputXvalue + pidOutputAvalue;
-                visionRight = -pidOutputXvalue + pidOutputAvalue;
-            Robot.driveSystem.tankDrive(visionLeft, visionRight);
-        }
+        //     // Interpret location(s) of target and drive accordingly
+        //     double pidOutputXvalue = Robot.driveSystem.pidXvalue.calculateOutput(VisionSystem.tapeDesiredX , ((centerX + centerX2) / 2));
+        //     double pidOutputAvalue = Robot.driveSystem.pidAvalue.calculateOutput(VisionSystem.tapeDesiredTargetArea, targetArea);
+        //         visionLeft = pidOutputXvalue + pidOutputAvalue;
+        //         visionRight = -pidOutputXvalue + pidOutputAvalue;
+        //     Robot.driveSystem.tankDrive(visionLeft, visionRight);
+        // }
     }
 
     @Override
