@@ -21,7 +21,7 @@ public class TeleopBasicVisionCommand extends Command {
     @Override
     protected void execute() {
        //Robot.visionSystem.processOneFrame();
-        System.out.print(Robot.visionSystem.getValueFromNetworkTable() + "\n");
+        System.out.print(Robot.visionSystem.getTargetXValues() + "\n");
     }
 
     @Override

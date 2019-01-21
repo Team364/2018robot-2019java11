@@ -26,24 +26,24 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class VisionSystem extends Subsystem {
 
     NetworkTableInstance roboRioInstance;
-    NetworkTable dataTable;
-    NetworkTableEntry testValue;
+    NetworkTable visionParameters;
+    NetworkTableEntry xValue;
     /**
      * VisionSystem() interprets data from grip pipelines filtering images from the
      * usb camera
      */
     public VisionSystem() {
         roboRioInstance = NetworkTableInstance.getDefault();
-        dataTable = roboRioInstance.getTable("datatable");
-        testValue = roboRioInstance.getEntry("testValue");
+        visionParameters = roboRioInstance.getTable("visionParameters");
+        xValue = visionParameters.getEntry("xValue");
 
         roboRioInstance.startClientTeam(364);
         //camera = CameraServer.getInstance().startAutomaticCapture("Video", 0);
         //camera.setResolution(320, 240);
     }
-    public double getValueFromNetworkTable() {
-        // THIS IS A TEST FUNCTION
-        return testValue.getDouble(-1);
+    public double[] getTargetXValues() {
+        // THIS IS A TEST FUNCTION        
+        return xValue.getDoubleArray(new double[0]);
     }
 
     public void setupSearchForBall() {     
