@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
    SmartDashboard.putNumber("A2 ", Robot.visionSystem.targetArea2);
    SmartDashboard.putNumber("A3 ", Robot.visionSystem.targetArea3);
    SmartDashboard.putNumber("A4 ", Robot.visionSystem.targetArea4);
-   SmartDashboard.putNumber("TapeAngle", Robot.visionSystem.TapeAngle);
+   //SmartDashboard.putNumber("TapeAngle", Robot.visionSystem.TapeAngle);
 }
 
 }

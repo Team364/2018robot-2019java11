@@ -56,7 +56,7 @@ public class VisionSystem extends Subsystem {
     public UsbCamera camera;
 
     private Mat lastCapturedImage;
-    public ArrayList<MatOfPoint2f> newContours;
+    public List<MatOfPoint2f> newContours = new ArrayList<>();
     RotatedRect Ellipse;
     public double TapeAngle;
 
@@ -204,21 +204,27 @@ public class VisionSystem extends Subsystem {
             source = lastCapturedImage;
         }
         imageProcessingPipeline.process(source);
-    
-        //Converts image(MatOfPoint) to MatOfPoint2f
-        for(MatOfPoint point : imageProcessingPipeline.findContoursOutput()) {
-            MatOfPoint2f newPoint = new MatOfPoint2f(point.toArray());
-            newContours.add(newPoint);
+        if (!imageProcessingPipeline.filterContoursOutput().isEmpty()) {
+
+            //Converts image(MatOfPoint) to MatOfPoint2f
+            for(MatOfPoint point : imageProcessingPipeline.findContoursOutput()) {
+                MatOfPoint2f newPoint = new MatOfPoint2f(point.toArray());
+                System.out.println(newPoint);
+                newContours.add(newPoint);
+            }
+
+            
+            //Puts points into fitEllipse function
+            for(MatOfPoint2f point : newContours)
+            {
+                Ellipse = Imgproc.fitEllipse(point); 
+            }
+
+            //Sets a variable to ellipse angle
+            TapeAngle = Ellipse.angle;
+            //Places ellipse on image
+            Imgproc.ellipse(lastCapturedImage, Ellipse, new Scalar(255, 255, 255));
         }
-        //Puts points into fitEllipse function
-        for(MatOfPoint2f point : newContours)
-        {
-            Ellipse = Imgproc.fitEllipse(point); 
-        }
-        //Sets a variable to ellipse angle
-        TapeAngle = Ellipse.angle;
-        //Places ellipse on image
-        Imgproc.ellipse(lastCapturedImage, Ellipse, new Scalar(255, 255, 255));
 
         if (!imageProcessingPipeline.filterContoursOutput().isEmpty()) {
             visionTargetSeen = true;
