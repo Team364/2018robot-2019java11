@@ -12,6 +12,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.vision.VisionThread;
 
+import java.util.List;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.core.*;
@@ -55,6 +56,10 @@ public class VisionSystem extends Subsystem {
     public UsbCamera camera;
 
     private Mat lastCapturedImage;
+    public ArrayList<MatOfPoint2f> newContours;
+    RotatedRect Ellipse;
+    public double TapeAngle;
+
 
     //Tape Fliter Values
     private double tapeContoursMinArea = 100.0;
@@ -199,10 +204,25 @@ public class VisionSystem extends Subsystem {
             source = lastCapturedImage;
         }
         imageProcessingPipeline.process(source);
+    
+        //Converts image(MatOfPoint) to MatOfPoint2f
+        for(MatOfPoint point : imageProcessingPipeline.findContoursOutput()) {
+            MatOfPoint2f newPoint = new MatOfPoint2f(point.toArray());
+            newContours.add(newPoint);
+        }
+        //Puts points into fitEllipse function
+        for(MatOfPoint2f point : newContours)
+        {
+            Ellipse = Imgproc.fitEllipse(point); 
+        }
+        //Sets a variable to ellipse angle
+        TapeAngle = Ellipse.angle;
+        //Places ellipse on image
+        Imgproc.ellipse(lastCapturedImage, Ellipse, new Scalar(255, 255, 255));
+
         if (!imageProcessingPipeline.filterContoursOutput().isEmpty()) {
             visionTargetSeen = true;
             Rect a = Imgproc.boundingRect(imageProcessingPipeline.filterContoursOutput().get(0));
-      
             synchronized (imgLock) {
                 centerX = a.x + (a.width / 2);
                 targetArea = a.area();
@@ -232,12 +252,11 @@ public class VisionSystem extends Subsystem {
                     targetArea6 = f.area();
                 }
             }
-           // System.out.println(imageProcessingPipeline.filterContoursOutput().size());
-
-          
+           System.out.println(imageProcessingPipeline.filterContoursOutput().size());
         } else {
             visionTargetSeen = false;
         }
+
     }
     @Override
     protected void initDefaultCommand() {
