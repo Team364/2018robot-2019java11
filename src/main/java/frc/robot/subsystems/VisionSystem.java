@@ -37,6 +37,7 @@ public class VisionSystem extends Subsystem {
         dataTable = roboRioInstance.getTable("datatable");
         testValue = roboRioInstance.getEntry("testValue");
 
+        roboRioInstance.startClientTeam(364);
         //camera = CameraServer.getInstance().startAutomaticCapture("Video", 0);
         //camera.setResolution(320, 240);
     }
