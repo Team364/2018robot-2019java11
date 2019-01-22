@@ -45,6 +45,10 @@ public class VisionSystem extends Subsystem {
         // THIS IS A TEST FUNCTION        
         return xValue.getDoubleArray(new double[0]);
     }
+    // public double getTargetXValue(){
+    //     double defaultValue = 0;
+    //     return xValue.getDouble(defaultValue);
+    // }
 
     public void setupSearchForBall() {     
     
