@@ -21,10 +21,10 @@ public class TeleopBasicVisionCommand extends Command {
     @Override
     protected void execute() {
        //Robot.visionSystem.processOneFrame();
-        double[] myArray = Robot.visionSystem.getTargetXValues();
-        System.out.print(myArray[0] + "\n");
-        // double xValue = Robot.visionSystem.getTargetXValue();
-        // System.out.print(xValue);
+        // double[] myArray = Robot.visionSystem.getTargetXValues();
+        // System.out.print(myArray[0] + "\n");
+        double xValue = Robot.visionSystem.getTargetXValue();
+        System.out.print(xValue);
     }
 
     @Override

@@ -41,14 +41,15 @@ public class VisionSystem extends Subsystem {
         //camera = CameraServer.getInstance().startAutomaticCapture("Video", 0);
         //camera.setResolution(320, 240);
     }
-    public double[] getTargetXValues() {
-        // THIS IS A TEST FUNCTION        
-        return xValue.getDoubleArray(new double[0]);
-    }
-    // public double getTargetXValue(){
-    //     double defaultValue = 0;
-    //     return xValue.getDouble(defaultValue);
+    // public double[] getTargetXValues() {
+    //     // THIS IS A TEST FUNCTION 
+    //     double[] defaultValue = {0.0};     
+    //     return xValue.getDoubleArray(defaultValue);
     // }
+    public double getTargetXValue(){
+        double defaultValue = 0;
+        return xValue.getDouble(defaultValue);
+    }
 
     public void setupSearchForBall() {     
     
