@@ -15,8 +15,13 @@ public class TeleopDriveCommand extends Command {
     }
 
     public DriveStates driveState;
-    public double tankLeft;
-    public double tankRight;
+    private double steer;
+    private double throttle;
+    private double leftThrottle;
+    private double rightThrottle;
+    private double steerHold;
+    // public double tankLeft;
+    // public double tankRight;
 
     /**
      * Command used for teleop control specific to the drive system
@@ -38,23 +43,27 @@ public class TeleopDriveCommand extends Command {
 
     @Override
     protected void execute() {
-
-        rightControllerInput = -Robot.oi.controller.getRawAxis(1);
-        leftControllerInput = -Robot.oi.controller.getRawAxis(5);
+        rightThrottle = Robot.oi.controller.getRawAxis(2);
+        leftThrottle = Robot.oi.controller.getRawAxis(3);
+        steer = -Robot.oi.controller.getRawAxis(0);
+        // rightControllerInput = -Robot.oi.controller.getRawAxis(1);
+        // leftControllerInput = -Robot.oi.controller.getRawAxis(5);
 
         // normal tank drive control
         if (driveState == DriveStates.STATE_NOT_MOVING) {
-            tankLeft = 0;
-            tankRight = 0;
-            if ((Math.abs(leftControllerInput) >= 0.25) || (Math.abs(rightControllerInput) >= 0.25)) {
+            // tankLeft = 0;
+            // tankRight = 0;
+            throttle = 0;
+            if ((Math.abs(rightThrottle) >= 0.25) || (Math.abs(leftThrottle) >= 0.25) || (Math.abs(steerHold) >= 0.25)) {
                 System.out.println("STATE_NOT_MOVING->STATE_DIRECT_DRIVE");
                 driveState = DriveStates.STATE_DIRECT_DRIVE;
             }
 
         } else if (driveState == DriveStates.STATE_DIRECT_DRIVE) {
-            tankLeft = leftControllerInput;
-            tankRight = rightControllerInput;
-            if ((Math.abs(leftControllerInput) < 0.2) && (Math.abs(rightControllerInput) < 0.2)) {
+            // tankLeft = leftControllerInput;
+            // tankRight = rightControllerInput;
+            throttle = leftThrottle - rightThrottle;
+            if ((Math.abs(rightThrottle) < 0.2) && (Math.abs(leftThrottle) < 0.2)) {
                 System.out.println("STATE_DIRECT_DRIVE->STATE_RAMP_DOWN");
                 driveState = DriveStates.STATE_RAMP_DOWN;
             }
@@ -73,7 +82,8 @@ public class TeleopDriveCommand extends Command {
             driveState = DriveStates.STATE_NOT_MOVING;
         }
 
-        Robot.driveSystem.tankDrive(tankLeft, tankRight);
+        // Robot.driveSystem.tankDrive(tankLeft, tankRight);
+        Robot.driveSystem.triggerDrive(throttle, steer);
 
     }
 

@@ -86,6 +86,13 @@ public class DriveSystem extends Subsystem {
         rightFront.set(-right);
         rightRear.set(-right);
     }
+    public void triggerDrive(double throttle, double steer){
+        double leftDrive;
+        double rightDrive;
+        leftDrive = throttle + steer;
+        rightDrive = throttle - steer;
+        tankDrive(leftDrive, rightDrive);
+    }
 
     /**
      * stop()
