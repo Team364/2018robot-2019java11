@@ -11,7 +11,8 @@ public class TeleopBasicVisionCommand extends Command {
      */
     public TeleopBasicVisionCommand() {
         requires(Robot.visionSystem);
-        //setInterruptible(true);
+        setInterruptible(true);
+
     }
 
     @Override
@@ -19,12 +20,16 @@ public class TeleopBasicVisionCommand extends Command {
     }
 
     @Override
-    protected void execute() {
-       //Robot.visionSystem.processOneFrame();
-        // double[] myArray = Robot.visionSystem.getTargetXValues();
-        // System.out.print(myArray[0] + "\n");
-        double xValue = Robot.visionSystem.getTargetXValue();
-        System.out.print(xValue);
+    protected void execute() { 
+        if(!Robot.visionSystem.noTarget()){
+            System.out.println(Robot.visionSystem.getAngleValues()[0]);
+            System.out.println(Robot.visionSystem.getCenterXValues()[0]);
+            System.out.println(Robot.visionSystem.getCenterYValues()[0]);
+            System.out.println(Robot.visionSystem.getHeightValues()[0]);
+            System.out.println(Robot.visionSystem.getWidthValues()[0]);
+        }
+ 
+
     }
 
     @Override
