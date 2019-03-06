@@ -50,8 +50,8 @@ public class DriveOpenLoop extends Command {
         } else {
             driveState = DriveStates.STATE_NOT_MOVING;
         }
-        leftPower = throttle + steer;
-        rightPower = throttle - steer;
+        rightPower = throttle + steer;
+        leftPower = throttle - steer;
         Apollo.driveTrain.openLoop(rightPower, leftPower);
     
 

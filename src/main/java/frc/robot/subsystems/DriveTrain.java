@@ -38,8 +38,6 @@ public class DriveTrain extends Subsystem {
         rightFront.set(-right);
         rightRear.set(-right);
     }
-
-
     public void stop() {
         leftFront.set(0);
         leftRear.set(0);
